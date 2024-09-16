@@ -1,0 +1,83 @@
+{
+  "team_name": "Royal Stallions",
+  "image_path": "resources/teams/royalstallions.png",
+  "players": [
+    {
+      "name": "Maria Reyes De",
+      "email": "maria.reyes@dominos.lol",
+      "number": 4,
+      "dni": "96736155C",
+      "phone": "78347370"
+    },
+    {
+      "name": "Reinaldo Sofía Santos",
+      "email": "reinaldo.sofía@weightwatchers.jfk",
+      "number": 7,
+      "dni": "60148005B",
+      "phone": "642791477"
+    },
+    {
+      "name": "Victorino Ignacio Núñez",
+      "email": "V.ignacio@subway.surfers",
+      "number": 8,
+      "dni": "87513980H",
+      "phone": "472124097"
+    },
+    {
+      "name": "Matias Díaz Padron",
+      "email": "matias.díaz@furbos.wow",
+      "number": 8,
+      "dni": "61374363D",
+      "phone": "386278671"
+    },
+    {
+      "name": "Oriol Barbero Sanz",
+      "email": "O.barbero@hamburge.jota",
+      "number": 2,
+      "dni": "81739035G",
+      "phone": "417569178"
+    },
+    {
+      "name": "Renata Rubio Romero",
+      "email": "renata.rubio@furbos.wow",
+      "number": 7,
+      "dni": "66867921D",
+      "phone": "837766130"
+    },
+    {
+      "name": "Arsenio Obrador Moreno",
+      "email": "A.obrador@frankdela.jungla",
+      "number": 6,
+      "dni": "30573749E",
+      "phone": "669481511"
+    },
+    {
+      "name": "Jimena Zamorano Losa",
+      "email": "jimena.zamorano@shushi.ae",
+      "number": 3,
+      "dni": "26692718A",
+      "phone": "119681851"
+    },
+    {
+      "name": "Alan Villalobos Quintana",
+      "email": "A.villalobos@benito.camela",
+      "number": 9,
+      "dni": "14086883F",
+      "phone": "115130140"
+    },
+    {
+      "name": "Carmelo Rubio Abarca",
+      "email": "C.rubio@benito.camela",
+      "number": 9,
+      "dni": "76695816F",
+      "phone": "740821335"
+    },
+    {
+      "name": "Nacho Padron Gonzalez",
+      "email": "N.padron@subway.surfers",
+      "number": 3,
+      "dni": "94013835H",
+      "phone": "857154736"
+    }
+  ]
+}

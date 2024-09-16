@@ -1,0 +1,401 @@
+Index: src/presentation/view/pantalles/UserMenuView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package presentation.view.pantalles;\r\n\r\nimport business.model.entities.Match;\r\nimport com.sun.jdi.PrimitiveValue;\r\nimport presentation.view.ui_elements.JImagePanel;\r\nimport presentation.view.ui_elements.MatchButton;\r\n\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\nimport java.awt.event.ActionListener;\r\nimport java.util.ArrayList;\r\n\r\n/**\r\n * Class that creates the panel that allows the user move across the different options\r\n */\r\npublic class UserMenuView extends JImagePanel {\r\n\r\n    private ActionListener l;\r\n\r\n    public static final String MATCH_PRESSED = \"MATCH_PRESSED_\";\r\n\r\n\r\n    // Components\r\n    private JMenuItem jmiLogout;\r\n    private JMenuItem jmiChangePassword;\r\n    private JMenuItem jmiDeleteAccount;\r\n    private JButton jbViewLeagues;\r\n    private JButton jbMatches;\r\n    private JPanel jPanelMatches;\r\n    private ArrayList<MatchButton> matches;\r\n    // Constants\r\n    public static final String CARD_MENU_PLAYER = \"CARD_MENU_PLAYER\";\r\n    public static final String CHANGE_PASSWORD_PRESSED = \"CHANGE_PASSWORD_PRESSED\";\r\n    public static final String LOGOUT_PRESSED = \"LOGOUT_PRESSED\";\r\n    public static final String DELETE_ACCOUNT_PRESSED = \"DELETE_ACCOUNT_PRESSED\";\r\n    public static final String VIEW_LEAGUES_PRESSED = \"VIEW_LEAGUES_PRESSED\";\r\n    public static final String MATCHES_PRESSED = \"MATCHES_PRESSED\";\r\n\r\n    /**\r\n     * Constructor method\r\n     * Creates the panel with the buttons to move across the different options\r\n     * @param path String that represents the path to the image background\r\n     */\r\n    public UserMenuView(String path) {\r\n        super(path);\r\n        setLayout(new BorderLayout());\r\n        createEastMenu();\r\n        createSouthMatches();\r\n        createCenterOptions();\r\n\r\n        setActionCommands();\r\n    }\r\n\r\n    public void registerController(ActionListener l){\r\n        this.l = l;\r\n        //loadMatches(null);\r\n\r\n        jbViewLeagues.addActionListener(l);\r\n        jbMatches.addActionListener(l);\r\n        jmiLogout.addActionListener(l);\r\n        jmiChangePassword.addActionListener(l);\r\n        jmiDeleteAccount.addActionListener(l);\r\n    }\r\n\r\n    /**\r\n     * Method that add the action commands to the buttons\r\n     */\r\n    private void setActionCommands() {\r\n        jbViewLeagues.setActionCommand(VIEW_LEAGUES_PRESSED);\r\n        jbMatches.setActionCommand(MATCHES_PRESSED);\r\n        jmiLogout.setActionCommand(LOGOUT_PRESSED);\r\n        jmiChangePassword.setActionCommand(CHANGE_PASSWORD_PRESSED);\r\n        jmiDeleteAccount.setActionCommand(DELETE_ACCOUNT_PRESSED);\r\n    }\r\n\r\n    private void createEastMenu() {\r\n        JPanel jpEast = new JPanel();\r\n        jpEast.setOpaque(false);\r\n        jpEast.setLayout(new BorderLayout());\r\n\r\n        ImageIcon image = new ImageIcon(\"resources/general/profile.png\");\r\n        Image img = image.getImage();\r\n\r\n        Image newimg = img.getScaledInstance(110, 100,  java.awt.Image.SCALE_SMOOTH);\r\n        ImageIcon newIcon = new ImageIcon(newimg);\r\n\r\n        JMenuBar menuBar = new JMenuBar();\r\n        JMenu menu = new JMenu();\r\n        menu.setIcon(newIcon);\r\n        menuBar.setPreferredSize(new Dimension(130,100));\r\n        menuBar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));\r\n\r\n        jmiLogout = new JMenuItem(\"Logout\");\r\n        jmiLogout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));\r\n\r\n        jmiChangePassword = new JMenuItem(\"Change Password\");\r\n        jmiChangePassword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));\r\n\r\n        jmiDeleteAccount = new JMenuItem(\"Delete Account\");\r\n        jmiDeleteAccount.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));\r\n\r\n        menu.add(jmiChangePassword);\r\n        menu.add(jmiLogout);\r\n        menu.add(jmiDeleteAccount);\r\n\r\n        menuBar.add(menu);\r\n        menuBar.setOpaque(false);\r\n\r\n        jpEast.add(menuBar, BorderLayout.NORTH);\r\n\r\n        add(jpEast, BorderLayout.EAST);\r\n\r\n    }\r\n\r\n    /**\r\n     * Method that creates the south panel\r\n     */\r\n    private void createSouthMatches(){\r\n        jPanelMatches = new JPanel();\r\n        jPanelMatches.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.5f));\r\n        jPanelMatches.setOpaque(false);\r\n        jPanelMatches.setBorder(BorderFactory.createEmptyBorder(5,0,0,0));\r\n\r\n        JScrollPane jspMatches = new JScrollPane(jPanelMatches, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);\r\n        jspMatches.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));\r\n        jspMatches.setOpaque(false);\r\n        jspMatches.getViewport().setOpaque(false);\r\n        add(jspMatches, BorderLayout.SOUTH);\r\n\r\n    }\r\n\r\n    private void createCenterOptions() {\r\n        // JPanel al center\r\n        JPanel jpcenter = new JPanel();\r\n        jpcenter.setLayout(new GridLayout(1,2));\r\n        jpcenter.setOpaque(false);\r\n\r\n        // PANEL esquerra on aniran els títols\r\n        JPanel jpleft = new JPanel();\r\n        jpleft.setOpaque(false);\r\n        jpleft.setLayout(new BoxLayout(jpleft, BoxLayout.Y_AXIS));\r\n        jpleft.setBorder(BorderFactory.createEmptyBorder(20,10,0,600));\r\n        jpcenter.add(jpleft);\r\n\r\n        // Panels per cada títol\r\n        jbViewLeagues = new JButton();\r\n        jbViewLeagues.setLayout(new BoxLayout(jbViewLeagues,BoxLayout.X_AXIS));\r\n        jbViewLeagues.setOpaque(false);\r\n        jbViewLeagues.setBorder(BorderFactory.createEmptyBorder(0,10,5,40));\r\n        jbViewLeagues.setOpaque(false);\r\n        jbViewLeagues.setContentAreaFilled(false);\r\n        jbViewLeagues.setBorderPainted(false);\r\n        jbViewLeagues.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));\r\n\r\n\r\n        jbMatches = new JButton();\r\n        jbMatches.setLayout(new BoxLayout(jbMatches,BoxLayout.X_AXIS));\r\n        jbMatches.setOpaque(false);\r\n        jbMatches.setBorder(BorderFactory.createEmptyBorder(25,0,5,70));\r\n        jbMatches.setOpaque(false);\r\n        jbMatches.setContentAreaFilled(false);\r\n        jbMatches.setBorderPainted(false);\r\n        jbMatches.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));\r\n\r\n        JImagePanel jiViewLeagues = new JImagePanel(\"resources/player_menu/playerViewLeagues.png\");\r\n        JImagePanel jiMatches = new JImagePanel(\"resources/player_menu/playerMatches.png\");\r\n\r\n        jiViewLeagues.setOpaque(false);\r\n        jiMatches.setOpaque(false);\r\n\r\n        jbViewLeagues.add(jiViewLeagues);\r\n        jbMatches.add(jiMatches);\r\n\r\n        jpleft.add(jbViewLeagues);\r\n        jpleft.add(jbMatches);\r\n        jpleft.add(Box.createRigidArea(new Dimension(0,500)));\r\n        add(jpcenter, BorderLayout.CENTER);\r\n    }\r\n\r\n    public void loadMatches(ArrayList<Match> matches){\r\n        this.matches = new ArrayList<>();\r\n        for (int i = 0; i < 50; i++) {\r\n            MatchButton matchButton = new MatchButton(\"aniquilators\", \"hanover\",3,2);\r\n            matchButton.setPreferredSize(new Dimension(200, 70));\r\n            matchButton.setBorder(BorderFactory.createEmptyBorder(0,5,0,5));\r\n            matchButton.setActionCommand(MATCH_PRESSED + i);\r\n            matchButton.addActionListener(l);\r\n            this.matches.add(matchButton);\r\n            jPanelMatches.add(matchButton);\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/presentation/view/pantalles/UserMenuView.java b/src/presentation/view/pantalles/UserMenuView.java
+--- a/src/presentation/view/pantalles/UserMenuView.java	(revision d0d6337ffd39f8438d56c0b9dbf4e7cce3297cd3)
++++ b/src/presentation/view/pantalles/UserMenuView.java	(date 1685271838594)
+@@ -1,6 +1,7 @@
+ package presentation.view.pantalles;
+ 
+ import business.model.entities.Match;
++import business.model.entities.MatchInfo;
+ import com.sun.jdi.PrimitiveValue;
+ import presentation.view.ui_elements.JImagePanel;
+ import presentation.view.ui_elements.MatchButton;
+@@ -9,17 +10,13 @@
+ import java.awt.*;
+ import java.awt.event.ActionListener;
+ import java.util.ArrayList;
++import java.util.HashMap;
+ 
+ /**
+  * Class that creates the panel that allows the user move across the different options
+  */
+ public class UserMenuView extends JImagePanel {
+-
+-    private ActionListener l;
+-
+     public static final String MATCH_PRESSED = "MATCH_PRESSED_";
+-
+-
+     // Components
+     private JMenuItem jmiLogout;
+     private JMenuItem jmiChangePassword;
+@@ -27,7 +24,7 @@
+     private JButton jbViewLeagues;
+     private JButton jbMatches;
+     private JPanel jPanelMatches;
+-    private ArrayList<MatchButton> matches;
++    private HashMap<String,MatchButton> matches;
+     // Constants
+     public static final String CARD_MENU_PLAYER = "CARD_MENU_PLAYER";
+     public static final String CHANGE_PASSWORD_PRESSED = "CHANGE_PASSWORD_PRESSED";
+@@ -52,8 +49,6 @@
+     }
+ 
+     public void registerController(ActionListener l){
+-        this.l = l;
+-        //loadMatches(null);
+ 
+         jbViewLeagues.addActionListener(l);
+         jbMatches.addActionListener(l);
+@@ -177,16 +172,25 @@
+         add(jpcenter, BorderLayout.CENTER);
+     }
+ 
+-    public void loadMatches(ArrayList<Match> matches){
+-        this.matches = new ArrayList<>();
+-        for (int i = 0; i < 50; i++) {
+-            MatchButton matchButton = new MatchButton("aniquilators", "hanover",3,2);
+-            matchButton.setPreferredSize(new Dimension(200, 70));
+-            matchButton.setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
+-            matchButton.setActionCommand(MATCH_PRESSED + i);
+-            matchButton.addActionListener(l);
+-            this.matches.add(matchButton);
+-            jPanelMatches.add(matchButton);
+-        }
++
++    public void addMatch(ActionListener l, MatchInfo matchInfo) {
++        MatchButton matchButton = new MatchButton(matchInfo.getTeam1Path(), matchInfo.getTeam2Path(), matchInfo.getScoreTeam1(), matchInfo.getScoreTeam2());
++        matchButton.setPreferredSize(new Dimension(200, 70));
++        matchButton.setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
++        matchButton.setActionCommand(MATCH_PRESSED + matchInfo.getId());
++        matchButton.addActionListener(l);
++        this.matches.put(matchInfo.getId(), matchButton);
++        jPanelMatches.add(matchButton);
++        revalidate();
++    }
++    public void updateMatchInfo(MatchInfo info) {
++        MatchButton matchButton = matches.get(info.getId());
++        matchButton.updateScore(info.getScoreTeam1(), info.getScoreTeam2());
++        revalidate();
+     }
++    public void removeMatch(String id) {
++        jPanelMatches.remove(matches.get(id));
++        matches.remove(id);
++        revalidate();
++    }
+ }
+Index: src/presentation/controller/UserMenuController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package presentation.controller;\r\nimport business.model.LeagueManager;\r\nimport business.model.TeamManager;\r\nimport business.model.UserManager;\r\nimport presentation.view.pantalles.LoginView;\r\nimport presentation.view.pantalles.UserMenuView;\r\nimport presentation.view.ui_elements.FileDialog;\r\n\r\nimport javax.swing.*;\r\nimport java.awt.event.ActionEvent;\r\nimport java.awt.event.ActionListener;\r\n\r\npublic class UserMenuController implements ActionListener {\r\n    private UserMenuView userMenuView;\r\n    private MainController mainController;\r\n    private UserManager userManager;\r\n\r\n    private TeamManager teamManager;\r\n    private LeagueManager leagueManager;\r\n\r\n    public UserMenuController(UserMenuView userMenuView, MainController mainController, TeamManager teamManager, LeagueManager leagueManager, UserManager userManager) {\r\n        this.userMenuView = userMenuView;\r\n        this.mainController = mainController;\r\n        this.teamManager = teamManager;\r\n        this.leagueManager = leagueManager;\r\n        this.userManager = userManager;\r\n    }\r\n\r\n    @Override\r\n    public void actionPerformed(ActionEvent e) {\r\n        switch (e.getActionCommand()) {\r\n            case FileDialog.CANCEL_FILE_PRESSED -> mainController.closeFileDialog();\r\n            case UserMenuView.CHANGE_PASSWORD_PRESSED -> {\r\n                userManager.logoutPlayer();\r\n                mainController.switchView(LoginView.CARD_LOGIN);\r\n                mainController.switchLoginView(LoginView.SUBCARD_RECOVER_PASSWORD);}\r\n\r\n            case UserMenuView.LOGOUT_PRESSED -> {\r\n                userManager.logoutPlayer();\r\n                mainController.switchView(LoginView.CARD_LOGIN);\r\n                mainController.switchLoginView(LoginView.SUBCARD_LOGIN);}\r\n\r\n            case UserMenuView.DELETE_ACCOUNT_PRESSED -> {\r\n                int resposta = JOptionPane.showConfirmDialog(null, \"Are you sure you want to delete your account?\", \"Deletion confirmation\", JOptionPane.YES_NO_OPTION);\r\n\r\n                if (resposta == JOptionPane.YES_OPTION) {\r\n                    userManager.deleteUserInfoFromDb();\r\n                    mainController.switchView(LoginView.CARD_LOGIN);\r\n                }\r\n\r\n            }\r\n            case UserMenuView.MATCHES_PRESSED -> System.out.println(\"matches\");\r\n            case UserMenuView.VIEW_LEAGUES_PRESSED -> System.out.println(\"view leagues\");\r\n\r\n\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/presentation/controller/UserMenuController.java b/src/presentation/controller/UserMenuController.java
+--- a/src/presentation/controller/UserMenuController.java	(revision d0d6337ffd39f8438d56c0b9dbf4e7cce3297cd3)
++++ b/src/presentation/controller/UserMenuController.java	(date 1685272727460)
+@@ -4,6 +4,7 @@
+ import business.model.UserManager;
+ import presentation.view.pantalles.LoginView;
+ import presentation.view.pantalles.UserMenuView;
++import presentation.view.pantalles.UserOptionView;
+ import presentation.view.ui_elements.FileDialog;
+ 
+ import javax.swing.*;
+@@ -49,8 +50,8 @@
+                 }
+ 
+             }
+-            case UserMenuView.MATCHES_PRESSED -> System.out.println("matches");
+-            case UserMenuView.VIEW_LEAGUES_PRESSED -> System.out.println("view leagues");
++            case UserMenuView.MATCHES_PRESSED -> mainController.switchView(UserOptionView.CARD_USER_OPTION);
++            case UserMenuView.VIEW_LEAGUES_PRESSED -> mainController.switchView(UserOptionView.CARD_USER_OPTION);
+ 
+ 
+         }
+Index: src/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import business.model.*;\r\nimport business.model.entities.League;\r\nimport business.model.entities.Match;\r\nimport business.model.exceptions.*;\r\nimport persistence.dbDAO.*;\r\nimport persistence.filesDAO.ConfigDAO;\r\nimport presentation.controller.*;\r\nimport presentation.view.pantalles.*;\r\nimport presentation.view.ui_elements.CreateLeagueDialog;\r\nimport presentation.view.ui_elements.FileDialog;\r\nimport presentation.view.ui_elements.LeagueBox;\r\n\r\nimport javax.swing.text.View;\r\nimport java.io.FileNotFoundException;\r\nimport java.io.IOException;\r\nimport java.util.ArrayList;\r\nimport java.util.concurrent.ExecutionException;\r\n\r\n\r\n/**\r\n * Main class\r\n * @author Andrea Ballester Griful\r\n * @author Leonardo Ruben Edenak Chouev\r\n * @author Pol Guarch Bosom\r\n * @author Jan Piñol Castuera\r\n * @author Oriol Rebordosa Cots\r\n * @author Joan Tarragó Pina\r\n */\r\npublic class Main {\r\n\r\n    /**\r\n     * Main method\r\n     * @param args arguments\r\n     * @throws IOException\r\n     * @throws ExecutionException\r\n     * @throws InterruptedException\r\n     * @throws ConfigFileNotFoundException\r\n     */\r\n    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException, ConfigFileNotFoundException, CouldntDeleteLeagueException {\r\n        //1. DATABASE\r\n        ConfigDAO config = new ConfigDAO();\r\n        config = config.readConfig();\r\n        DatabaseDAO database = new DatabaseDAO();\r\n        database.createDB();\r\n\r\n        //2. DBDAO\r\n        PlayerDbDAO playerDbDAO = new PlayerDbDAO(database.getBd());\r\n        TeamDbDAO teamDbDAO = new TeamDbDAO(database.getBd(), playerDbDAO);\r\n        TeamRankingDbDAO teamRankingDbDAO = new TeamRankingDbDAO(teamDbDAO, database.getBd());\r\n        MatchDbDAO matchDbDAO = new MatchDbDAO(database.getBd(), config, teamRankingDbDAO);\r\n        CalendarDbDAO calendarDbDAO = new CalendarDbDAO(database.getBd(), matchDbDAO);\r\n        LeagueDbDAO leagueDbDAO = new LeagueDbDAO(database.getBd(), teamDbDAO, calendarDbDAO, matchDbDAO, teamRankingDbDAO);\r\n\r\n        //3. MANAGER\r\n        UserManager userManager = new UserManager(playerDbDAO, teamDbDAO, config, leagueDbDAO);\r\n        TeamManager teamManager = new TeamManager(userManager, teamDbDAO, playerDbDAO, teamRankingDbDAO, leagueDbDAO, matchDbDAO);\r\n        LeagueManager leagueManager = new LeagueManager(leagueDbDAO, teamDbDAO,userManager, calendarDbDAO, teamRankingDbDAO, matchDbDAO, config);\r\n        MatchManager matchManager = new MatchManager(config, matchDbDAO, teamDbDAO, userManager);\r\n\r\n        Match match = new Match(\"bd2d0719-759d-4dff-b43a-cc5dccf95da6\",\"7d4ea619-20be-4924-a7f5-3b0db19316cb\",\"3920508b-819d-4a88-a3ff-ee894dbf1f6c\",\r\n                                \"023d4a5c-0ca5-49e4-bc6d-8f53cb18e1ff\", \"25/05/2023\", \"20:32\");\r\n        //match.setTeam1Score(0);\r\n        //match.setTeam2Score(3);\r\n        //matchDbDAO.updateRanking(match);\r\n\r\n        //4. MAIN VIEW i MAIN CONTROLLER\r\n        MainView mainView = new MainView();\r\n        MainController mainController = new MainController(mainView);\r\n\r\n        //5. LOGIN VIEW i LOGIN CONTROLLER\r\n        LoginPanel loginPanel = new LoginPanel();\r\n        RecoverPasswordPanel recoverPasswordPanel = new RecoverPasswordPanel();\r\n        LoginView loginView = new LoginView(\"resources/login/fons.png\",loginPanel,recoverPasswordPanel);\r\n\r\n        LoginController loginController =new LoginController(loginView,mainController,userManager);\r\n        loginView.registerController(loginController);\r\n\r\n        //6. USER MENU VIEW i USER MENU CONTROLLER\r\n        FileDialog fileDialog = new FileDialog(mainView);\r\n        CreateLeagueDialog createLeagueDialog = new CreateLeagueDialog(mainView);\r\n        UserMenuView userMenuView = new UserMenuView(\"resources/player_menu/playerFons.png\");\r\n\r\n        UserMenuController userMenuController = new UserMenuController(userMenuView, mainController,teamManager,leagueManager,userManager);\r\n        userMenuView.registerController(userMenuController);\r\n\r\n        //7. ADMIN OPTION VIEW i ADMIN OPTION CONTROLLER\r\n        AdminManage adminManage = new AdminManage();\r\n        AdminShowTeamsDelete adminShowTeamsDelete = new AdminShowTeamsDelete();\r\n        AdminShowLeaguesDelete adminShowLeaguesDelete = new AdminShowLeaguesDelete();\r\n        AdminAddTeamsToLeagues adminAddTeamsToLeagues = new AdminAddTeamsToLeagues();\r\n        ViewLeagues viewLeagues = new ViewLeagues();\r\n        ViewMatches viewMatches = new ViewMatches();\r\n        InfoLeague infoLeague = new InfoLeague();\r\n        MatchDetail matchDetail = new MatchDetail();\r\n        SpecificTeam specificTeam = new SpecificTeam();\r\n        AdminOptionView adminOptionView = new AdminOptionView(adminManage,adminShowTeamsDelete,\r\n                adminShowLeaguesDelete,adminAddTeamsToLeagues,createLeagueDialog,viewLeagues,\r\n                viewMatches,infoLeague,matchDetail,specificTeam);\r\n\r\n        AdminOptionController adminOptionController = new AdminOptionController(adminOptionView,mainController,teamManager,leagueManager,matchManager);\r\n        adminOptionView.registerController(adminOptionController);\r\n\r\n        //8. ADMIN MENU VIEW i ADMIN MENU CONTROLLER\r\n        AdminMenuView adminMenuView = new AdminMenuView(\"resources/admin_menu/adminFons.png\",fileDialog,createLeagueDialog);\r\n        AdminMenuController adminMenuController = new AdminMenuController(adminMenuView,mainController,teamManager,leagueManager,userManager, adminOptionView,adminOptionController,matchManager);\r\n        adminMenuView.registerController(adminMenuController);\r\n\r\n        //9. THREAD MATCH START DETECTOR\r\n        CheckMatchesToPlayThread  checkMatchesToPlayThread = new CheckMatchesToPlayThread(matchDbDAO,matchManager, adminMenuController, leagueManager, adminOptionController, userManager);\r\n        Thread threadPlayMatches = new Thread(checkMatchesToPlayThread);\r\n        //threadPlayMatches.start();\r\n\r\n        //10. MAIN VIEW START i CONTROLLERS UNION\r\n        mainController.setControllers(adminMenuController,adminOptionController);\r\n\r\n        mainView.addCards(loginView,adminMenuView, userMenuView,adminOptionView);\r\n        mainView.start();\r\n\r\n\r\n\r\n        //TODO: ELIMINAR testTeamsFiles\r\n        //testTeamsFiles(teamManager);\r\n        //ArrayList<String> leagues = new ArrayList<>();\r\n        //leagues.add(leagueManager.getAllLeagues().get(0).getName());\r\n        //leagueManager.deleteLeagues(leagues);*/\r\n    }\r\n\r\n    private static void testTeamsFiles(TeamManager teamManager){\r\n        for (int i = 0; i < 20; i++) {\r\n            try {\r\n                teamManager.createTeamFromJSON(\"resources/fitxers_teams/team\"+i+\".json\");\r\n            } catch (TeamAlreadyExistsException | PlayerWithInvalidNumberException | ExistsUserSameDniException |\r\n                     DniNotCorrectException | ExistsUserSameEmailException | EmailNotCorrectException |\r\n                     PlayerNotFoundException | FileNotFoundException ignored) {\r\n\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+--- a/src/Main.java	(revision d0d6337ffd39f8438d56c0b9dbf4e7cce3297cd3)
++++ b/src/Main.java	(date 1685272727475)
+@@ -83,6 +83,7 @@
+         UserMenuController userMenuController = new UserMenuController(userMenuView, mainController,teamManager,leagueManager,userManager);
+         userMenuView.registerController(userMenuController);
+ 
++
+         //7. ADMIN OPTION VIEW i ADMIN OPTION CONTROLLER
+         AdminManage adminManage = new AdminManage();
+         AdminShowTeamsDelete adminShowTeamsDelete = new AdminShowTeamsDelete();
+@@ -105,6 +106,10 @@
+         AdminMenuController adminMenuController = new AdminMenuController(adminMenuView,mainController,teamManager,leagueManager,userManager, adminOptionView,adminOptionController,matchManager);
+         adminMenuView.registerController(adminMenuController);
+ 
++        //
++        UserOptionView userOptionView =new UserOptionView(viewLeagues,matchDetail);
++        UserOptionController userOptionController = new UserOptionController(userOptionView,mainController,leagueManager,userManager,matchManager);
++
+         //9. THREAD MATCH START DETECTOR
+         CheckMatchesToPlayThread  checkMatchesToPlayThread = new CheckMatchesToPlayThread(matchDbDAO,matchManager, adminMenuController, leagueManager, adminOptionController, userManager);
+         Thread threadPlayMatches = new Thread(checkMatchesToPlayThread);
+Index: src/presentation/view/pantalles/UserOptionView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package presentation.view.pantalles;\r\n\r\nimport javax.swing.*;\r\n\r\n/**\r\n * Class that creates the panel that allows the user option view\r\n */\r\npublic class UserOptionView extends JPanel {\r\n    public UserOptionView() {\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/presentation/view/pantalles/UserOptionView.java b/src/presentation/view/pantalles/UserOptionView.java
+--- a/src/presentation/view/pantalles/UserOptionView.java	(revision d0d6337ffd39f8438d56c0b9dbf4e7cce3297cd3)
++++ b/src/presentation/view/pantalles/UserOptionView.java	(date 1685272727468)
+@@ -1,11 +1,125 @@
+ package presentation.view.pantalles;
+ 
++import presentation.view.ui_elements.JImagePanel;
++import presentation.view.ui_elements.MatchButton;
++
+ import javax.swing.*;
++import java.awt.*;
++import java.util.HashMap;
+ 
+ /**
+  * Class that creates the panel that allows the user option view
+  */
+-public class UserOptionView extends JPanel {
+-    public UserOptionView() {
++public class UserOptionView extends JImagePanel {
++    public final static String CARD_USER_OPTION = "CARD_USER_OPTION";
++    private ViewLeagues viewLeagues;
++    private MatchDetail matchDetail;
++    private HashMap<String, MatchButton> matches;
++    private CardLayout cardLayout;
++    private JPanel jpCardLayout;
++    private JMenuItem jmiLogout;
++    private JMenuItem jmiChangePassword;
++    private JMenuItem jmiDeleteAccount;
++    private JButton jbMenu;
++    private JPanel jPanelMatches;
++
++    public UserOptionView(ViewLeagues viewLeagues,MatchDetail matchDetail) {
++        super("resources/general/fonsEstadi.png");
++        matches=new HashMap<>();
++        setLayout(new BorderLayout());
++
++        cardLayout = new CardLayout();
++        jpCardLayout = new JPanel(cardLayout);
++        jpCardLayout.setOpaque(false);
++
++        this.viewLeagues = viewLeagues;
++        jpCardLayout.add(viewLeagues,ViewLeagues.CARD_VIEW_LEAGUES);
++
++        this.matchDetail = matchDetail;
++        jpCardLayout.add(matchDetail,MatchDetail.CARD_MATCH_DETAIL);
++
++
++        add(jpCardLayout, BorderLayout.CENTER);
++        // WEST LAYOUT (logo)
++        JPanel jpWest = new JPanel();
++        jpWest.setOpaque(false);
++        jpWest.setLayout(new BorderLayout());
++        add(jpWest, BorderLayout.WEST);
++
++        jbMenu = new JButton();
++        JImagePanel jiLogo = new JImagePanel("resources/general/logoPages.png");
++        jiLogo.setPreferredSize(new Dimension(300,500));
++        jiLogo.setOpaque(false);
++        jbMenu.add(jiLogo);
++        jbMenu.setPreferredSize(new Dimension(130,100));
++        jbMenu.setOpaque(false);
++        jbMenu.setContentAreaFilled(false);
++        jbMenu.setBorderPainted(false);
++        jbMenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
++
++        jpWest.add(jbMenu, BorderLayout.NORTH);
++
++        // EAST LAYOUT (profile)
++        JPanel jpEast = new JPanel();
++        jpEast.setBackground(Color.pink);
++        add(jpEast, BorderLayout.EAST);
++
++        jpEast.setOpaque(false);
++        jpEast.setLayout(new BorderLayout());
++
++        ImageIcon jiProfile = new ImageIcon("resources/general/profile.png");
++        Image img = jiProfile.getImage();
++
++        Image newimg = img.getScaledInstance(110, 100,  java.awt.Image.SCALE_SMOOTH);
++        ImageIcon newIcon = new ImageIcon(newimg);
++
++        JMenuBar menuBar = new JMenuBar();
++        JMenu menu = new JMenu();
++        menu.setIcon(newIcon);
++        menuBar.setPreferredSize(new Dimension(130,100));
++        menuBar.setOpaque(false);
++        menuBar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
++
++        jmiLogout = new JMenuItem("Logout");
++        jmiLogout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
++
++        jmiChangePassword = new JMenuItem("Change Password");
++        jmiChangePassword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
++
++        jmiDeleteAccount = new JMenuItem("Delete Account");
++        jmiDeleteAccount.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
++
++        menu.add(jmiChangePassword);
++        menu.add(jmiLogout);
++        menu.add(jmiDeleteAccount);
++
++        menu.add(jmiLogout);
++        menuBar.add(menu);
++
++        jpEast.add(menuBar, BorderLayout.NORTH);
++
++        createSouthMatches();
++
++        setActionCommands();
++    }
++
++    private void setActionCommands() {
++        jmiLogout.setActionCommand(UserMenuView.LOGOUT_PRESSED);
++        jmiChangePassword.setActionCommand(UserMenuView.CHANGE_PASSWORD_PRESSED);
++        jmiDeleteAccount.setActionCommand(UserMenuView.DELETE_ACCOUNT_PRESSED);
++    }
++
++    private void createSouthMatches(){
++        jPanelMatches = new JPanel();
++        jPanelMatches.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.5f));
++        jPanelMatches.setOpaque(false);
++        jPanelMatches.setBorder(BorderFactory.createEmptyBorder(5,0,0,0));
++
++        JScrollPane jspMatches = new JScrollPane(jPanelMatches, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
++        jspMatches.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
++        jspMatches.setOpaque(false);
++        jspMatches.getViewport().setOpaque(false);
++        add(jspMatches, BorderLayout.SOUTH);
++
+     }
+ }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"f1dfe5f2-2462-4271-84c8-245a7a780c95\" name=\"Changes\" comment=\"Admin acabat\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Main.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/presentation/controller/UserMenuController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/presentation/controller/UserMenuController.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$/..\" value=\"GUI_login\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2N5eVnLriMhuQRzileEUcGcfA7u\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,\r\n    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,\r\n    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,\r\n    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,\r\n    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Pol/Universitat/2n_ANY/Programació_Orientada_Objectes/Practiques/Pràctica_2_League_Manager/dpoo-2223-s2-c11/League_Manager_C11/resources/fitxers_teams&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Pol\\Universitat\\2n_ANY\\Programació_Orientada_Objectes\\Practiques\\Pràctica_2_League_Manager\\dpoo-2223-s2-c11\\League_Manager_C11\\resources\\fitxers_teams\" />\r\n      <recent name=\"C:\\Pol\\Universitat\\2n_ANY\\Programació_Orientada_Objectes\\Practiques\\Pràctica_2_League_Manager\\dpoo-2223-s2-c11\\League_Manager_C11\\resources\\general\" />\r\n      <recent name=\"C:\\Pol\\Universitat\\2n_ANY\\Programació_Orientada_Objectes\\Practiques\\Pràctica_2_League_Manager\\dpoo-2223-s2-c11\\League_Manager_C11\\resources\\test\" />\r\n      <recent name=\"C:\\Pol\\Universitat\\2n_ANY\\Programació_Orientada_Objectes\\Practiques\\Pràctica_2_League_Manager\\dpoo-2223-s2-c11\\League_Manager_C11\\resources\\player_menu\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Pol\\Universitat\\2n_ANY\\Programació_Orientada_Objectes\\Practiques\\Pràctica_2_League_Manager\\dpoo-2223-s2-c11\\League_Manager_C11\\resources\\general\" />\r\n      <recent name=\"C:\\Pol\\Universitat\\2n_ANY\\Programació_Orientada_Objectes\\Practiques\\Pràctica_2_League_Manager\\dpoo-2223-s2-c11\\League_Manager_C11\\src\\presentation\\view\\ui_elements\" />\r\n      <recent name=\"C:\\Pol\\Universitat\\2n_ANY\\Programació_Orientada_Objectes\\Practiques\\Pràctica_2_League_Manager\\dpoo-2223-s2-c11\\League_Manager_C11\\src\\presentation\\view\\pantalles\" />\r\n      <recent name=\"C:\\Pol\\Universitat\\2n_ANY\\Programació_Orientada_Objectes\\Practiques\\Pràctica_2_League_Manager\\dpoo-2223-s2-c11\\League_Manager_C11\\resources\\player_menu\" />\r\n      <recent name=\"C:\\Pol\\Universitat\\2n_ANY\\Programació_Orientada_Objectes\\Practiques\\Pràctica_2_League_Manager\\dpoo-2223-s2-c11\\League_Manager_C11\\resources\\admin_menu\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Main\" />\r\n      <module name=\"League_Manager_C11\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Main\" />\r\n        <item itemvalue=\"Application.Main\" />\r\n        <item itemvalue=\"Application.Main\" />\r\n        <item itemvalue=\"Application.Main\" />\r\n        <item itemvalue=\"Application.Main\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"f1dfe5f2-2462-4271-84c8-245a7a780c95\" name=\"Changes\" comment=\"\" />\r\n      <created>1678958397804</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1678958397804</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00044\" summary=\"Password reset\">\r\n      <created>1684486565186</created>\r\n      <option name=\"number\" value=\"00044\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00044\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684486565186</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00045\" summary=\"Password reset\">\r\n      <created>1684487606818</created>\r\n      <option name=\"number\" value=\"00045\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00045\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684487606818</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00046\" summary=\"Password reset\">\r\n      <created>1684487783415</created>\r\n      <option name=\"number\" value=\"00046\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00046\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684487783415</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00047\" summary=\"Password reset\">\r\n      <created>1684489362003</created>\r\n      <option name=\"number\" value=\"00047\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00047\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684489362003</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00048\" summary=\"Password reset\">\r\n      <created>1684489535948</created>\r\n      <option name=\"number\" value=\"00048\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00048\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684489535948</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00049\" summary=\"Password reset\">\r\n      <created>1684490073909</created>\r\n      <option name=\"number\" value=\"00049\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00049\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684490073909</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00050\" summary=\"Password reset\">\r\n      <created>1684737317835</created>\r\n      <option name=\"number\" value=\"00050\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00050\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684737317835</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00051\" summary=\"Password reset\">\r\n      <created>1684737984549</created>\r\n      <option name=\"number\" value=\"00051\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00051\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684737984549</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00052\" summary=\"Eliminació de teams perfecte\">\r\n      <created>1684760826347</created>\r\n      <option name=\"number\" value=\"00052\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00052\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684760826347</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00053\" summary=\"Eliminació de teams perfecte\">\r\n      <created>1684775146620</created>\r\n      <option name=\"number\" value=\"00053\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00053\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684775146620</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00054\" summary=\"Eliminació de teams perfecte\">\r\n      <created>1684837731762</created>\r\n      <option name=\"number\" value=\"00054\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00054\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684837731762</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00055\" summary=\"Eliminació de teams perfecte\">\r\n      <created>1684847712231</created>\r\n      <option name=\"number\" value=\"00055\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00055\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684847712231</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00056\" summary=\"Creació de lliga part I funcional\">\r\n      <created>1684868900588</created>\r\n      <option name=\"number\" value=\"00056\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00056\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684868900588</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00057\" summary=\"Creació de lliga part I funcional\">\r\n      <created>1684871954686</created>\r\n      <option name=\"number\" value=\"00057\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00057\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684871954686</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00058\" summary=\"Creació de lliga part I funcional\">\r\n      <created>1684872355791</created>\r\n      <option name=\"number\" value=\"00058\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00058\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684872355791</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00059\" summary=\"Creació de lliga part I funcional\">\r\n      <created>1684874870647</created>\r\n      <option name=\"number\" value=\"00059\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00059\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684874870647</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00060\" summary=\"Creació de lliga part I funcional\">\r\n      <created>1684875674184</created>\r\n      <option name=\"number\" value=\"00060\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00060\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684875674184</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00061\" summary=\"Creació de lliga part I funcional\">\r\n      <created>1684876890849</created>\r\n      <option name=\"number\" value=\"00061\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00061\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684876890849</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00062\" summary=\"Creació de lliga part I funcional\">\r\n      <created>1684941068669</created>\r\n      <option name=\"number\" value=\"00062\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00062\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684941068669</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00063\" summary=\"Creació de lliga part I funcional amb tots els errors controlats\">\r\n      <created>1684953521175</created>\r\n      <option name=\"number\" value=\"00063\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00063\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684953521175</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00064\" summary=\"Creació de lliga part I funcional amb tots els errors controlats\">\r\n      <created>1684953582684</created>\r\n      <option name=\"number\" value=\"00064\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00064\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684953582684</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00065\" summary=\"Creació de lliga part I funcional amb tots els errors controlats\">\r\n      <created>1684956362752</created>\r\n      <option name=\"number\" value=\"00065\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00065\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684956362752</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00066\" summary=\"Creació de lliga part I funcional amb tots els errors controlats\">\r\n      <created>1684958377084</created>\r\n      <option name=\"number\" value=\"00066\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00066\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1684958377084</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00067\" summary=\"Creació de lliga part I funcional amb tots els errors controlats\">\r\n      <created>1685005905300</created>\r\n      <option name=\"number\" value=\"00067\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00067\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685005905300</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00068\" summary=\"Creació de lliga part I funcional amb tots els errors controlats\">\r\n      <created>1685006840132</created>\r\n      <option name=\"number\" value=\"00068\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00068\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685006840132</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00069\" summary=\"Creació de lliga part I funcional amb tots els errors controlats\">\r\n      <created>1685007860705</created>\r\n      <option name=\"number\" value=\"00069\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00069\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685007860705</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00070\" summary=\"Creació de lliga part I funcional amb tots els errors controlats\">\r\n      <created>1685008104758</created>\r\n      <option name=\"number\" value=\"00070\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00070\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685008104758</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00071\" summary=\"Intentant arreglar els partits\">\r\n      <created>1685009694621</created>\r\n      <option name=\"number\" value=\"00071\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00071\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685009694621</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00072\" summary=\"Crear lliga, llistar, crear calendari perfecte. Toca reduir temps\">\r\n      <created>1685026320336</created>\r\n      <option name=\"number\" value=\"00072\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00072\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685026320336</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00073\" summary=\"Crear lliga, llistar, crear calendari perfecte. Toca reduir temps\">\r\n      <created>1685039336205</created>\r\n      <option name=\"number\" value=\"00073\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00073\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685039336206</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00074\" summary=\"Crear lliga, llistar, crear calendari perfecte. Toca reduir temps\">\r\n      <created>1685043158357</created>\r\n      <option name=\"number\" value=\"00074\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00074\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685043158357</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00075\" summary=\"Crear lliga, llistar, crear calendari perfecte. Toca reduir temps\">\r\n      <created>1685043691009</created>\r\n      <option name=\"number\" value=\"00075\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00075\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685043691009</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00076\" summary=\"Simulació feta\">\r\n      <created>1685094876358</created>\r\n      <option name=\"number\" value=\"00076\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00076\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685094876358</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00077\" summary=\"Simulació feta\">\r\n      <created>1685097594031</created>\r\n      <option name=\"number\" value=\"00077\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00077\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685097594031</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00078\" summary=\"Simulació feta\">\r\n      <created>1685100938034</created>\r\n      <option name=\"number\" value=\"00078\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00078\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685100938034</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00079\" summary=\"Simulació en diverses pantalles funciona perfecte\">\r\n      <created>1685102498668</created>\r\n      <option name=\"number\" value=\"00079\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00079\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685102498668</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00080\" summary=\"Loading inicial de les dades al fer login\">\r\n      <created>1685116547955</created>\r\n      <option name=\"number\" value=\"00080\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00080\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685116547955</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00081\" summary=\"Loading inicial de les dades al fer login\">\r\n      <created>1685122119817</created>\r\n      <option name=\"number\" value=\"00081\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00081\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685122119817</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00082\" summary=\"Millora en el temps de consultes\">\r\n      <created>1685126381143</created>\r\n      <option name=\"number\" value=\"00082\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00082\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685126381143</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00083\" summary=\"commit random foto\">\r\n      <created>1685127143484</created>\r\n      <option name=\"number\" value=\"00083\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00083\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685127143484</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00084\" summary=\"Arreglant bugs\">\r\n      <created>1685198812105</created>\r\n      <option name=\"number\" value=\"00084\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00084\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685198812106</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00085\" summary=\"Arreglant bugs\">\r\n      <created>1685199608364</created>\r\n      <option name=\"number\" value=\"00085\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00085\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685199608364</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00086\" summary=\"Arreglant bugs\">\r\n      <created>1685201969243</created>\r\n      <option name=\"number\" value=\"00086\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00086\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685201969243</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00087\" summary=\"Provant grafics\">\r\n      <created>1685206178054</created>\r\n      <option name=\"number\" value=\"00087\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00087\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685206178054</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00088\" summary=\"Events de partits\">\r\n      <created>1685213313130</created>\r\n      <option name=\"number\" value=\"00088\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00088\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685213313130</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00089\" summary=\"Events de partits\">\r\n      <created>1685213441909</created>\r\n      <option name=\"number\" value=\"00089\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00089\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685213441909</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00090\" summary=\"Events de partits\">\r\n      <created>1685214817603</created>\r\n      <option name=\"number\" value=\"00090\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00090\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685214817603</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00091\" summary=\"Events de partits\">\r\n      <created>1685228068868</created>\r\n      <option name=\"number\" value=\"00091\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00091\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685228068868</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00092\" summary=\"Admin acabat\">\r\n      <created>1685270517896</created>\r\n      <option name=\"number\" value=\"00092\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00092\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685270517896</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"93\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"Comunicació entre pantalles acabada\" />\r\n    <MESSAGE value=\"Create new team acabat\" />\r\n    <MESSAGE value=\"Exceptions arreglades\" />\r\n    <MESSAGE value=\"He afegit requeriments de json al dialeg\" />\r\n    <MESSAGE value=\"HE acabat el dialeg per mostrar els jugadors nous\" />\r\n    <MESSAGE value=\"Creant la pantalla per crear una lliga\" />\r\n    <MESSAGE value=\"Create Listener\" />\r\n    <MESSAGE value=\"He estat movent la estructura que relacionava els controllers amb el sistema per els seus corresponents managers.\" />\r\n    <MESSAGE value=\"Pantalla principal actualitzada\" />\r\n    <MESSAGE value=\"Logout\" />\r\n    <MESSAGE value=\"Password reset\" />\r\n    <MESSAGE value=\"Eliminació de teams perfecte\" />\r\n    <MESSAGE value=\"Creació de lliga part I funcional\" />\r\n    <MESSAGE value=\"Creació de lliga part I funcional amb tots els errors controlats\" />\r\n    <MESSAGE value=\"Intentant arreglar els partits\" />\r\n    <MESSAGE value=\"Crear lliga, llistar, crear calendari perfecte. Toca reduir temps\" />\r\n    <MESSAGE value=\"Simulació feta\" />\r\n    <MESSAGE value=\"Simulació en diverses pantalles funciona perfecte\" />\r\n    <MESSAGE value=\"Loading inicial de les dades al fer login\" />\r\n    <MESSAGE value=\"Millora en el temps de consultes\" />\r\n    <MESSAGE value=\"commit random foto\" />\r\n    <MESSAGE value=\"Arreglant bugs\" />\r\n    <MESSAGE value=\"Provant grafics\" />\r\n    <MESSAGE value=\"Events de partits\" />\r\n    <MESSAGE value=\"Admin acabat\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Admin acabat\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/presentation/view/pantalles/SpecificTeam.java</url>\r\n          <line>40</line>\r\n          <option name=\"timeStamp\" value=\"6\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n    <watches-manager>\r\n      <configuration name=\"Application\">\r\n        <watch expression=\"events\" />\r\n      </configuration>\r\n    </watches-manager>\r\n  </component>\r\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\r\n    <SUITE FILE_PATH=\"coverage/League_Manager_C11$Main.ic\" NAME=\"Main Coverage Results\" MODIFIED=\"1684957797178\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"idea\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision d0d6337ffd39f8438d56c0b9dbf4e7cce3297cd3)
++++ b/.idea/workspace.xml	(date 1685272727351)
+@@ -5,9 +5,12 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="f1dfe5f2-2462-4271-84c8-245a7a780c95" name="Changes" comment="Admin acabat">
++      <change afterPath="$PROJECT_DIR$/src/presentation/controller/UserOptionController.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/presentation/controller/UserMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/presentation/controller/UserMenuController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/presentation/view/pantalles/UserMenuView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/presentation/view/pantalles/UserMenuView.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/presentation/view/pantalles/UserOptionView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/presentation/view/pantalles/UserOptionView.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -100,13 +103,6 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1678958397804</updated>
+-    </task>
+-    <task id="LOCAL-00044" summary="Password reset">
+-      <created>1684486565186</created>
+-      <option name="number" value="00044" />
+-      <option name="presentableId" value="LOCAL-00044" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1684486565186</updated>
+     </task>
+     <task id="LOCAL-00045" summary="Password reset">
+       <created>1684487606818</created>
+@@ -444,7 +440,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1685270517896</updated>
+     </task>
+-    <option name="localTasksCounter" value="93" />
++    <task id="LOCAL-00093" summary="Admin acabat">
++      <created>1685271207979</created>
++      <option name="number" value="00093" />
++      <option name="presentableId" value="LOCAL-00093" />
++      <option name="project" value="LOCAL" />
++      <updated>1685271207979</updated>
++    </task>
++    <option name="localTasksCounter" value="94" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+Index: src/presentation/controller/UserOptionController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/presentation/controller/UserOptionController.java b/src/presentation/controller/UserOptionController.java
+new file mode 100644
+--- /dev/null	(date 1685272727441)
++++ b/src/presentation/controller/UserOptionController.java	(date 1685272727441)
+@@ -0,0 +1,50 @@
++package presentation.controller;
++
++import business.model.*;
++import business.model.entities.Match;
++import business.model.entities.MatchInfo;
++import presentation.view.pantalles.UserOptionView;
++
++import java.awt.event.ActionEvent;
++import java.awt.event.ActionListener;
++
++public class UserOptionController implements ActionListener, MatchListener, JourneyListener {
++    private final UserOptionView userOptionView;
++    private MainController mainController;
++    private LeagueManager leagueManager;
++    private UserManager userManager;
++    private MatchManager matchManager;
++
++    public UserOptionController(UserOptionView userOptionView, MainController mainController, LeagueManager leagueManager, UserManager userManager, MatchManager matchManager) {
++        this.userOptionView = userOptionView;
++        this.mainController = mainController;
++        this.leagueManager = leagueManager;
++        this.userManager = userManager;
++        this.matchManager = matchManager;
++    }
++
++    @Override
++    public void actionPerformed(ActionEvent e) {
++
++    }
++
++    @Override
++    public void journeyChanged(String leagueId, String newJourney) {
++
++    }
++
++    @Override
++    public void notifyStartMatch(MatchInfo info) {
++
++    }
++
++    @Override
++    public void notifyScoreUpdated(MatchInfo info) {
++
++    }
++
++    @Override
++    public void notifyEndMatch(Match info) {
++
++    }
++}

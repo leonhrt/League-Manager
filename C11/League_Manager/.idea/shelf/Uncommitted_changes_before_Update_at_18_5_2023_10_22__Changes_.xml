@@ -1,0 +1,59 @@
+<changelist name="Uncommitted_changes_before_Update_at_18_5_2023_10_22_[Changes]" date="1684398144553" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_5_2023_10_22_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 18/5/2023 10:22 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/business/model/LeagueManager.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/business/model/LeagueManager.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_5_2023_10_22_[Changes]/LeagueManager.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/business/model/Sistema.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/business/model/Sistema.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_5_2023_10_22_[Changes]/Sistema.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/persistence/dbDAO/LeagueDbDAO.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/presentation/controller/MainController.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/presentation/controller/MainController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_5_2023_10_22_[Changes]/MainController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/presentation/controller/AdminMenuController.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/presentation/view/pantalles/AdminMenuView.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/business/model/UserManager.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/business/model/UserManager.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_5_2023_10_22_[Changes]/UserManager.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/business/model/entities/League.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/business/model/entities/League.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_5_2023_10_22_[Changes]/League.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/persistence/dbDAO/CalendarDbDAO.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/Main.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/business/model/entities/Calendar.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/business/model/entities/Calendar.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_5_2023_10_22_[Changes]/Calendar.class" />
+  </binary>
+</changelist>

@@ -1,0 +1,17 @@
+Index: src/business/model/DeleteFromDbAndRam.java
+===================================================================
+diff --git a/src/business/model/DeleteFromDbAndRam.java b/src/business/model/DeleteFromDbAndRam.java
+--- a/src/business/model/DeleteFromDbAndRam.java	
++++ b/src/business/model/DeleteFromDbAndRam.java	
+@@ -1,5 +1,11 @@
+ package business.model;
+ 
++import business.model.entities.Player;
++import persistence.LeagueDbDAO;
++import persistence.MatchDbDAO;
++import persistence.PlayerDbDAO;
++import persistence.TeamDbDAO;
++
+ public class DeleteFromDbAndRam {
+     private PlayerDbDAO playerDbDAO;
+     private TeamDbDAO teamDbDAO;

@@ -1,0 +1,79 @@
+<changelist name="Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]" date="1682670454647" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 28/4/2023 10:27 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/business/model/entities/DBTeam.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/business/model/entities/DBTeam.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/DBTeam.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/HintTextField$1.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/HintTextField$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/HintTextField$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/IconPasswordField.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/IconPasswordField.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/IconPasswordField.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/FileDialog.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/FileDialog.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/FileDialog.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/IconTextField.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/IconTextField.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/IconTextField.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/JImagePanel.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/JImagePanel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/JImagePanel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/presentation/view/pantalles/RecoverPasswordPanel.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/presentation/view/pantalles/RecoverPasswordPanel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/RecoverPasswordPanel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/HintPasswordField.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/HintPasswordField.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/HintPasswordField.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/business/model/entities/Team.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/business/model/entities/Team.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/Team.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/presentation/view/pantalles/LoginPanel.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/presentation/view/pantalles/LoginPanel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/LoginPanel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/HintPasswordField$1.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/HintPasswordField$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/HintPasswordField$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/business/model/exceptions/FileNotFoundException.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/business/model/exceptions/FileNotFoundException.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/FileNotFoundException.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/presentation/controller/UserMenuController.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/presentation/controller/UserMenuController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/UserMenuController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/HintTextField.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/presentation/view/ui_elements/HintTextField.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/HintTextField.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/League_Manager_C11/business/model/exceptions/ConfigFileNotFoundException.class" />
+    <option name="AFTER_PATH" value="out/production/League_Manager_C11/business/model/exceptions/ConfigFileNotFoundException.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_2023_10_27_[Changes]/ConfigFileNotFoundException.class" />
+  </binary>
+</changelist>

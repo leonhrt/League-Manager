@@ -1,0 +1,21 @@
+Index: src/business/model/entities/Player.java
+===================================================================
+diff --git a/src/business/model/entities/Player.java b/src/business/model/entities/Player.java
+--- a/src/business/model/entities/Player.java	
++++ b/src/business/model/entities/Player.java	
+@@ -11,14 +11,13 @@
+     private ArrayList<Team> teams;
+ 
+     // Aquesta funció ha de ser capaç de crear un jugador amb el nom que li passem per paràmetre.
+-    public Player(String username, String password, String name, String email, String phone, int number, String dni, ArrayList<Team> teams) {
++    public Player(String username, String password, String name, String email, String phone, int number, String dni) {
+         super(username, password);
+         this.name = name;
+         this.email = email;
+         this.phone = phone;
+         this.number = number;
+         this.dni = dni;
+-        this.teams = teams;
+     }
+ 
+     public ArrayList<Team> getTeams() {
